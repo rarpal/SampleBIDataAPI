@@ -36,19 +36,19 @@ namespace SampleBIDataAPI.Controllers
 
             switch (measure)
             {
-                case "PatientCount":
+                case "Patient Count":
                     Measure<int> patientcountmeasure = new Measure<int>();
                     patientcountmeasure.Dimension = "[Measures]";
                     patientcountmeasure.MemberName = "[Patient Count]";
                     helper.GetMeasureOnAllDrugsByCondition<int>(patientcountmeasure, conditionmember);
                     break;
-                case "PrescriptionCount":
+                case "Prescription Count":
                     Measure<int> prescriptioncountmeasure = new Measure<int>();
                     prescriptioncountmeasure.Dimension = "[Measures]";
                     prescriptioncountmeasure.MemberName = "[Prescription Count]";
                     helper.GetMeasureOnAllDrugsByCondition<int>(prescriptioncountmeasure, conditionmember);
                     break;
-                case "PrescriptionCost":
+                case "Prescription Cost":
                     Measure<double> prescriptioncostmeasure = new Measure<double>();
                     prescriptioncostmeasure.Dimension = "[Measures]";
                     prescriptioncostmeasure.MemberName = "[Prescription Cost]";

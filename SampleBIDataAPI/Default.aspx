@@ -45,7 +45,7 @@
                     type: "GET",
                     dataType: "json",
                     url: "api/MeasureOnAllDrugsByCondition",
-                    data: "",
+                    data: {measure: 'Patient Count', condition: ''},
                     conentType: "application/json; charset=utf-8"
 
                 });
