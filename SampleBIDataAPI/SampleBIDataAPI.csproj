@@ -128,7 +128,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataConnection.cs" />
-    <Compile Include="Models\MDXModel.cs" />
+    <Compile Include="Models\CubeModel.cs" />
     <Compile Include="Models\DrugReportingModel.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

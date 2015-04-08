@@ -23,8 +23,8 @@ namespace SampleBIDataAPI.Controllers
         public List<ConditionMember> GetAllConditions()
         {
             DrugReportingModelHelper helper = new DrugReportingModelHelper();
-            
-            return helper.GetAllConditionMembers();
+
+            return helper.ConditionDimension.Members;
         }
 
         // Get measure for all drugs by condition and return JSON result to the AJAX client

@@ -18,36 +18,43 @@ namespace SampleBIDataAPI.Models
 {
     public class DrugReportingModelHelper
     {
-        public class DrugMember
-        {
-            public string MemberKey { get; set; }
-            public string MemberName { get; set; }
-            public string ReferenceProperty { get; set; }
-        }
+        public ConditionDimension ConditionDimension { get; set; }
+        //ConceptDimension DrugConceptDimension;
 
-        public class DrugDimension
+        public DrugReportingModelHelper()
         {
-            public List<DrugMember> DrugMembers;
-
-            public DrugDimension()
-            {
-                // populate DrugMembers with only drug members hard coded
-            }
+            ConditionDimension = new ConditionDimension();
+            //DrugConceptDimension = new ConceptDimension("DESCENDANTS([Dim Concept].[Concept].&[254819],[Dim Concept].[Concept].[Level 02],AFTER)");
         }
         
+
         public void GetMeasureOnAllDrugsByCondition<T>(Measure<T> measure, ConditionMember conditionmember)
         {
             // construct the MDX, execute and return an IQueriable result to the controller
             string mdxQuery = null;
 
+            mdxQuery += "SELECT " + measure.Dimension + "." + measure.MemberName + "ON 0, " +
+                "NON EMPTY DESCENDANTS([Dim Concept].[Concept].&[254819],[Dim Concept].[Concept].[Level 02],AFTER) ON 1 " +
+                "PATIENTCT" +
+                "WHERE " + conditionmember;
+
             using (AdomdConnection dc = new AdomdConnection(DataConnection.GetSSASConnectionString()))
             {
-                dc.Open();
-                AdomdCommand dcom = new AdomdCommand(mdxQuery, dc);
-                DataSet dset = new DataSet();
-                dset.EnforceConstraints = false;
-                dset.Tables.Add("Results");
-                dset.Tables["Results"].Load(dcom.ExecuteReader());
+
+                using (AdomdCommand dcom = new AdomdCommand(mdxQuery, dc))
+                {
+                    dc.Open();
+                    AdomdDataReader dr = dcom.ExecuteReader();
+
+                }
+                
+                
+                //dc.Open();
+                //AdomdCommand dcom = new AdomdCommand(mdxQuery, dc);
+                //DataSet dset = new DataSet();
+                //dset.EnforceConstraints = false;
+                //dset.Tables.Add("Results");
+                //dset.Tables["Results"].Load(dcom.ExecuteReader());
 
                 
             }
@@ -62,20 +69,12 @@ namespace SampleBIDataAPI.Models
 
             //return result;
         }
-
-        public List<ConditionMember> GetAllConditionMembers()
-        {
-            ConditionDimension conditiondimension = new ConditionDimension();
-
-            return conditiondimension.Members;
-        }
         
         public ConditionMember GetConditionMemberByName(string condition)
         {
-            ConditionDimension conditiondimension = new ConditionDimension();
             ConditionMember conditionmember = new ConditionMember();
-            
-            foreach (var item in conditiondimension.Members)
+
+            foreach (var item in ConditionDimension.Members)
             {
                 if (item.MemberName == condition)
                 {

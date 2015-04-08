@@ -7,6 +7,30 @@ using System.Web;
 
 namespace SampleBIDataAPI.Models
 {
+    public class ConceptMember
+    {
+        public string MemberKey { get; set; }
+        public string MemberName { get; set; }
+        public string Dimension { get; set; }
+        public string Hiearchy { get; set; }
+        public string Level { get; set; }
+    }
+    
+    public class ConceptDimension
+    {
+        public List<ConceptMember> Members { get; set; }
+
+        public ConceptDimension()
+        {
+
+        }
+
+        public ConceptDimension(string expression)
+        {
+
+        }
+    }
+
     public class ConditionMember
     {
         public string MemberKey { get; set; }
@@ -23,6 +47,11 @@ namespace SampleBIDataAPI.Models
         public ConditionDimension()
         {
             // populate members with all conditions
+        }
+
+        public ConditionDimension(string expression)
+        {
+
         }
     }
 

@@ -23,6 +23,7 @@
     <script>
         //var uri = 'api/products';
         var uri = 'http://localhost/SampleBIDataAPI/api/products'
+        //var uri = 'api/DrugReporting/MeasureOnAllDrugsByCondition';
 
         $(document).ready(function () {
             // Send an AJAX request
