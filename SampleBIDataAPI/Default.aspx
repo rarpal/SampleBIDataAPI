@@ -44,8 +44,8 @@
                 var aj = $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url: "api/MeasureOnAllDrugsByCondition",
-                    data: {measure: 'Patient Count', condition: ''},
+                    url: "api/MeasureOnAllDrugsByCondition?measure=Patient Count&condition=",
+                    //data: {measure: 'Patient Count', condition: ''},
                     conentType: "application/json; charset=utf-8"
 
                 });
