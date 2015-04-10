@@ -16,6 +16,12 @@ using Microsoft.AnalysisServices.AdomdClient;
 
 namespace SampleBIDataAPI.Models
 {
+    public class DrugData
+    {
+        public string DrugName { get; set; }
+        public int Count { get; set; }
+    }
+    
     public class DrugReportingModelHelper
     {
         public ConditionDimension ConditionDimension { get; set; }

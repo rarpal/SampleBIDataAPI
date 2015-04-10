@@ -1,0 +1,43 @@
+DrugName	Patient Count
+Drug groups primarily affecting the cardiovascular system (x01QF)	420
+Antihypertensive (x01QX)	420
+Angiotensin-converting enzyme inhibitor (bi...)	420
+Captopril (bi1..)	3
+Captopril 25mg tablet (bi1w.)	2
+Captopril 25mg tablets x56 (bi1x.)	1
+Captopril 50mg tablet (bi1z.)	1
+Captopril 50mg tablets x56 (bi1y.)	1
+PERINDOPRIL ARGININE (biC..)	1
+PERINDOPRIL ARGININE+INDAPAMIDE 5mg/1.25mg tablets (biC8.)	1
+Cilazapril (bi8..)	1
+Cilazapril 5mg tablet (bi8a.)	1
+Enalapril (x01Qe)	20
+Enalapril maleate 2.5mg tablet (bi2t.)	1
+Enalapril maleate 5mg tablet (bi2u.)	6
+Enalapril maleate 5mg tablets x28 (bi2v.)	2
+Enalapril maleate 10mg tablet (bi2w.)	5
+Enalapril maleate 20mg tablet (bi2y.)	9
+Enalapril maleate 20mg tablets x28 (bi2z.)	2
+Fosinopril (x01Qf)	1
+Fosinopril sodium 20mg tablet (bi72.)	1
+Lisinopril (bi3..)	65
+Lisinopril 2.5mg tablet starter pack (bi3r.)	4
+Lisinopril 2.5mg tablet (bi31.)	10
+Lisinopril 5mg tablet (bi32.)	19
+Lisinopril 10mg tablet (bi33.)	26
+Lisinopril 20mg tablet (bi34.)	18
+Lisinopril+diuretic (x007H)	1
+Lisinopril+hydrochlorothiazide 20mg/12.5mg tablet (bi3p.)	1
+Perindopril (x01Qg)	18
+Perindopril erbumine 2mg tablet (bi51.)	5
+Perindopril erbumine 4mg tablet (bi52.)	11
+Perindopril erbumine 8mg tablet (bi57.)	4
+Ramipril (bi6..)	324
+Ramipril 1.25mg capsule (bi61.)	43
+Ramipril 2.5mg capsule (bi62.)	98
+Ramipril 5mg capsule (bi63.)	92
+Ramipril 10mg capsule (bi67.)	149
+Trandolapril (bi9..)	3
+Trandolapril 500micrograms capsule (bi91.)	1
+Trandolapril 1mg capsule (bi92.)	2
+Trandolapril 2mg capsule (bi93.)	1

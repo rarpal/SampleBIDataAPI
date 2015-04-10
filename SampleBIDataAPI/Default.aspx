@@ -1,11 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SampleBIDataAPI.Default" %>
 <!DOCTYPE html>
-<script src="Scripts/d3.v3.min.js"></script>
-<script src="Scripts/jquery-1.10.2.min.js"></script>
-<script src="Scripts/sollisfunctions.js"></script>
 <style>
     .chart rect {
-    fill: steelblue;
+      fill: steelblue;
     }
 
     .chart text {
@@ -15,45 +12,122 @@
     }
 </style>
 <svg class="chart"></svg>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%--<div class="chart"></div>--%>
+<script src="Scripts/d3.v3.min.js"></script>
+<script src="Scripts/jquery-1.10.2.min.js"></script>
+<script src="Scripts/sollisfunctions.js"></script>
+<%--<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+</head>--%>
+<%--<body>--%>
+    <%--<form id="form1" runat="server">--%>
+        <%--<div class="chart">
+
+        </div>--%>
+
         <script>
-            $("document").ready(function() {Setup();});
+            var chartData;
+
+            var width = 420,
+                barHeight = 20;
+            var x = d3.scale.linear()
+                .range([0, width]);
+            var chart = d3.select(".chart")
+                .attr("width", width);
+
+            //var data = [4, 8, 15, 16, 23, 42];
+
+            //var x = d3.scale.linear()
+            //    .domain([0, d3.max(data)])
+            //    .range([0, 420]);
+
+            $("document").ready(function () { Setup(); });
+
+            //d3.select(".chart")
+            //  .selectAll("div")
+            //    .data(data)
+            //  .enter().append("div")
+            //    .style("width", function (d) { return x(d) + "px"; })
+            //    .text(function (d) { return d; });
 
             function Setup() {
                 _toolTipDiv = d3.select("body").append("div")
-                .attr("class", "tooltip")
-                .style("opacity", 0).style("position", "absolute");
+                    .attr("class", "chart")
+                    .style("opacity", 0).style("position", "absolute");
 
-                
-                
-                
+                GetChartData();
             }
 
             function GetChartData() {
+                chartData = GetData();
+                chartData.done(function (data) {
+                    //var d;
+                    //chartData = eval(data.d);
+                    ProcessCharts();
+                });
 
+                //data.done(function (data) {
+                //    // On success, 'data' contains a list of products.
+                //    $.each(data, function (key, item) {
+                //        // Add a list item for the product.
+                //        $('<li>', { text: formatItem(item) }).appendTo($('#products'));
+                //    });
+                //});
+            }
 
+            function formatItem(item) {
+                return item.Name + ': $' + item.Price;
             }
 
             function GetData() {
 
-                var aj = $.ajax({
-                    type: "GET",
-                    dataType: "json",
-                    url: "api/MeasureOnAllDrugsByCondition?measure=Patient Count&condition=",
-                    //data: {measure: 'Patient Count', condition: ''},
-                    conentType: "application/json; charset=utf-8"
+                //var uri = 'api/products';
+                var uri = "api/DrugReporting/MeasureOnAllDrugsByCondition";
+                var aj = $.getJSON(uri, function(data){
+                    chart.attr("height", barHeight * data.items.count)
+                    var bar = chart.selectAll("g")
+                        .data(data)
+                        .enter().append("g")
+
+                    d3.slect(".chart")
+                        .selectAll("g")
+                            .data(data)
+                        .enter().append("g")
+                            
 
                 });
 
+                //var aj = $.ajax({
+                //    type: "GET",
+                //    dataType: "json",
+                //    url: "api/MeasureOnAllDrugsByCondition?measure=Patient Count&condition=",
+                //    //data: {measure: 'Patient Count', condition: ''},
+                //    conentType: "application/json; charset=utf-8"
+                //});
+
+                return aj;
+            }
+
+            function ProcessCharts(){
+                //d3.tsv("chartData.txt", type, function (error, data) {
+                //    data.len
+
+                //});
+                
+                chart.attr("height", barHeight * chartData.items)
+                
+                d3.select(".chart")
+                    .selectAll("g")
+                        .data(chartData)
+                    .enter().append("g")
+                        .attr("transform", function(d,i) {return "translate(0," + i * })
+                        .style("width", function (d) { return d.count + "px"; })
+                        .text(function (d) { return d.DrugName });
             }
 
 
         </script>
-    </form>
-</body>
-</html>
+    <%--</form>--%>
+<%--</body>--%>
+<%--</html>--%>
