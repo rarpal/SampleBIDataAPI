@@ -1,4 +1,4 @@
-DrugName	Patient Count
+name	value
 Drug groups primarily affecting the cardiovascular system (x01QF)	420
 Antihypertensive (x01QX)	420
 Angiotensin-converting enzyme inhibitor (bi...)	420

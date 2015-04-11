@@ -1,4 +1,15 @@
 ﻿<!DOCTYPE html>
+<style>
+    .chart rect {
+        fill: steelblue;
+    }
+
+    .chart text {
+        fill: white;
+        font: 10px sans-serif;
+        text-anchor: end;
+    }
+</style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Product App</title>
@@ -17,21 +28,39 @@
     </div>
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="Scripts/d3.v3.min.js"></script>
     <script>
-        var uri = 'api/products';
+        var width = 420,
+            barHeight = 20;
+
+        var x = d3.scale.linear()
+            .range([0, width]);
+
+        var chart = d3.select(".chart")
+            .attr("width", width);
+
+        //var uri = 'api/Products';
+        var uri = 'api/DrugReporting'
         //var uri = 'http://localhost/SampleBIDataAPI/api/products'
 
         $(document).ready(function () {
+            setdata();
             // Send an AJAX request
-            $.getJSON(uri)
-                .done(function (data) {
-                    // On success, 'data' contains a list of products.
-                    $.each(data, function (key, item) {
-                        // Add a list item for the product.
-                        $('<li>', { text: formatItem(item) }).appendTo($('#products'));
-                    });
-                });
+           
         });
+
+        function setdata() {
+            var d = $.getJSON(uri)
+            //var d = d3.tsv("chartData.txt");
+               d.done(function (data) {
+                   //x.domain([0, d3.max(data, function (d) { return d.value; })]);
+                   // On success, 'data' contains a list of products.
+                   $.each(data, function (key, item) {
+                       // Add a list item for the product.
+                       $('<li>', { text: formatItem(item) }).appendTo($('#products'));
+                   });
+               });
+        }
 
         function formatItem(item) {
             return item.Name + ': $' + item.Price;

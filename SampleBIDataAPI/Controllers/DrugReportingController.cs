@@ -35,6 +35,19 @@ namespace SampleBIDataAPI.Controllers
             new DrugData {DrugName = "Lisinopril (bi3..)", Count = 65},
             new DrugData {DrugName = "Perindopril (x01Qg)", Count = 18}
         };
+
+        public class yourdrugdata
+        {
+            public DrugData[] drugdata = new DrugData[] 
+            {
+                new DrugData {DrugName = "Captopril (bi1..)", Count = 3},
+                new DrugData {DrugName = "Cilazapril (bi8..)", Count = 1},
+                new DrugData {DrugName = "Enalapril (x01Qe)", Count = 20},
+                new DrugData {DrugName = "Lisinopril (bi3..)", Count = 65},
+                new DrugData {DrugName = "Perindopril (x01Qg)", Count = 18}
+             };
+        }
+
         
         // Get all conditions
         //public List<ConditionMember> GetAllConditions()
@@ -47,8 +60,9 @@ namespace SampleBIDataAPI.Controllers
         // Get measure for all drugs by condition and return JSON result to the AJAX client
         //public JsonResult<BarChartData> GetMeasureOnAllDrugsByCondition(string measure, string condition)
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public IEnumerable<DrugData> GetMeasureOnAllDrugsByCondition()
-        //public JsonResult<DrugData> GetMeasureOnAllDrugsByCondition()
+        //public IEnumerable<DrugData> GetMeasureOnAllDrugsByCondition()
+        //public JsonResult<yourdrugdata> GetMeasureOnAllDrugsByCondition()
+        public JsonResult<DrugData[]> GetMeasureOnAllDrugsByCondition()
         {
             //string measure = null;
             //string condition = null;
@@ -81,7 +95,10 @@ namespace SampleBIDataAPI.Controllers
             //}
 
             //return Json<BarChartData>(barchartdata);
-            return drugusage;
+            //return drugusage;
+            //yourdrugdata yd = new yourdrugdata();
+            //return Json<yourdrugdata>(yd);
+            return Json<DrugData[]>(drugusage);
         }
     }
 }
