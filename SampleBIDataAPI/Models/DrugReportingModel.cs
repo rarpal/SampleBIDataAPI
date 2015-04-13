@@ -58,9 +58,9 @@ namespace SampleBIDataAPI.Models
             string mdxQuery = null;
             DataSet dset = new DataSet();
 
-            mdxQuery += "SELECT " + measure.Dimension + "." + measure.MemberName + "ON 0, " +
+            mdxQuery += "SELECT " + measure.Dimension + "." + measure.MemberName + " ON 0, " +
                 "NON EMPTY DESCENDANTS([Dim Concept].[Concept].&[254819],[Dim Concept].[Concept].[Level 02],AFTER) ON 1 " +
-                "PATIENTCT" +
+                "FROM PATIENTCT " +
                 "WHERE " + conditionmember.Dimension + "." + conditionmember.Hiearchy + "." + (conditionmember.IsMemberKeyAvailable() ? conditionmember.MemberKey : conditionmember.MemberName);
 
             using (AdomdConnection dc = new AdomdConnection(DataConnection.GetSSASConnectionString()))

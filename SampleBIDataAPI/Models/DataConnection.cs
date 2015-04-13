@@ -50,7 +50,8 @@ public static class DataConnection
         string connectionString = ConfigurationManager.ConnectionStrings["OLAPConnection"].ConnectionString;
 
         //Attempt to update the connection string to determine if the username and password are encrypted:
-        SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionString);
-        return builder.DataSource;
+        //SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionString);
+        //return builder.DataSource;
+        return connectionString;
     }
 }
