@@ -71,7 +71,7 @@ namespace SampleBIDataAPI.Controllers
             //DataRowCollection barchartdata = new DataRowCollection();
             List<Dictionary<string,object>> barchartdata = new List<Dictionary<string,object>>();
             DrugReportingModelHelper helper = new DrugReportingModelHelper();
-            ConditionMember conditionmember = helper.GetConditionMemberByName(condition);
+            ConditionMember conditionmember = new ConditionMember(null,"&[10073]"); //helper.GetConditionMemberByName(condition);
 
             switch (measure)
             {

@@ -12,7 +12,7 @@ using Microsoft.AnalysisServices.AdomdClient;
 //NON EMPTY DESCENDANTS([Dim Concept].[Concept].&[254819],[Dim Concept].[Concept].[Level 02],AFTER) ON 1
 //FROM PATIENTCT
 //WHERE 
-//[Dim QOF Group].[QOF Condition].&[10073]
+//[Dim QOF Group].[QOF Condition].[QOF Condition].&[10073]
 
 namespace SampleBIDataAPI.Models
 {
@@ -61,7 +61,7 @@ namespace SampleBIDataAPI.Models
             mdxQuery += "SELECT " + measure.Dimension + "." + measure.MemberName + "ON 0, " +
                 "NON EMPTY DESCENDANTS([Dim Concept].[Concept].&[254819],[Dim Concept].[Concept].[Level 02],AFTER) ON 1 " +
                 "PATIENTCT" +
-                "WHERE " + conditionmember;
+                "WHERE " + conditionmember.Dimension + "." + conditionmember.Hiearchy + "." + (conditionmember.IsMemberKeyAvailable() ? conditionmember.MemberKey : conditionmember.MemberName);
 
             using (AdomdConnection dc = new AdomdConnection(DataConnection.GetSSASConnectionString()))
             {
@@ -73,33 +73,16 @@ namespace SampleBIDataAPI.Models
 
                 //}
 
-
                 dc.Open();
                 AdomdCommand dcom = new AdomdCommand(mdxQuery, dc);
                 dset.EnforceConstraints = false;
                 dset.Tables.Add("Results");
                 dset.Tables["Results"].Load(dcom.ExecuteReader());
-               
             }
             
             IQueryable result = null;
             //return result;
             return dset.Tables[0];
-        }
-        
-        public ConditionMember GetConditionMemberByName(string condition)
-        {
-            ConditionMember conditionmember = new ConditionMember();
-
-            foreach (var item in ConditionDimension.Members)
-            {
-                if (item.MemberName == condition)
-                {
-                    return (ConditionMember)item;
-                }
-            }
-
-            return null;
         }
     }
 }

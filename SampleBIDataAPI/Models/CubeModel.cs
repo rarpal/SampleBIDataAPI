@@ -14,6 +14,15 @@ namespace SampleBIDataAPI.Models
         public string Dimension { get; set; }
         public string Hiearchy { get; set; }
         public string Level { get; set; }
+
+        public ConceptMember(string membername, string memberkey)
+        {
+            Dimension = "[Dim QOF Group]";
+            Hiearchy = "[QOF Condition]";
+            Level = "[QOF Condition]";
+            MemberName = membername;
+            MemberKey = memberkey;
+        }
     }
     
     public class ConceptDimension
@@ -38,6 +47,27 @@ namespace SampleBIDataAPI.Models
         public string Dimension { get; set; }
         public string Hiearchy { get; set; }
         public string Level { get; set; }
+
+        public ConditionMember(string membername, string memberkey)
+        {
+            Dimension = "[Dim QOF Group]";
+            Hiearchy = "[QOF Condition]";
+            Level = "[QOF Condition]";
+            if (!String.IsNullOrWhiteSpace(memberkey))
+            {
+                MemberKey = memberkey;
+            }
+            else
+            {
+                MemberName = membername;
+            }
+        }
+
+        public bool IsMemberKeyAvailable()
+        {
+            return !String.IsNullOrWhiteSpace(MemberKey);
+        }
+
     }
 
     public class ConditionDimension
