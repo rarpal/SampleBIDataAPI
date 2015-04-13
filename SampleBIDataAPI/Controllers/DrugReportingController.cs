@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -58,47 +59,50 @@ namespace SampleBIDataAPI.Controllers
         //}
 
         // Get measure for all drugs by condition and return JSON result to the AJAX client
-        //public JsonResult<BarChartData> GetMeasureOnAllDrugsByCondition(string measure, string condition)
         [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public JsonResult<List<Dictionary<string, object>>> GetMeasureOnAllDrugsByCondition(string measure, string condition)
         //public IEnumerable<DrugData> GetMeasureOnAllDrugsByCondition()
         //public JsonResult<yourdrugdata> GetMeasureOnAllDrugsByCondition()
-        public JsonResult<DrugData[]> GetMeasureOnAllDrugsByCondition()
+        //public JsonResult<DrugData[]> GetMeasureOnAllDrugsByCondition()
         {
             //string measure = null;
             //string condition = null;
             //BarChartData barchartdata = new BarChartData();
-            //DrugReportingModelHelper helper = new DrugReportingModelHelper();
-            //ConditionMember conditionmember = helper.GetConditionMemberByName(condition);
+            //DataRowCollection barchartdata = new DataRowCollection();
+            List<Dictionary<string,object>> barchartdata = new List<Dictionary<string,object>>();
+            DrugReportingModelHelper helper = new DrugReportingModelHelper();
+            ConditionMember conditionmember = helper.GetConditionMemberByName(condition);
 
-            //switch (measure)
-            //{
-            //    case "Patient Count":
-            //        Measure<int> patientcountmeasure = new Measure<int>();
-            //        patientcountmeasure.Dimension = "[Measures]";
-            //        patientcountmeasure.MemberName = "[Patient Count]";
-            //        helper.GetMeasureOnAllDrugsByCondition<int>(patientcountmeasure, conditionmember);
-            //        break;
-            //    case "Prescription Count":
-            //        Measure<int> prescriptioncountmeasure = new Measure<int>();
-            //        prescriptioncountmeasure.Dimension = "[Measures]";
-            //        prescriptioncountmeasure.MemberName = "[Prescription Count]";
-            //        helper.GetMeasureOnAllDrugsByCondition<int>(prescriptioncountmeasure, conditionmember);
-            //        break;
-            //    case "Prescription Cost":
-            //        Measure<double> prescriptioncostmeasure = new Measure<double>();
-            //        prescriptioncostmeasure.Dimension = "[Measures]";
-            //        prescriptioncostmeasure.MemberName = "[Prescription Cost]";
-            //        helper.GetMeasureOnAllDrugsByCondition<double>(prescriptioncostmeasure, conditionmember);
-            //        break;
-            //    default:
-            //        break;
-            //}
+            switch (measure)
+            {
+                case "Patient Count":
+                    Measure<int> patientcountmeasure = new Measure<int>();
+                    patientcountmeasure.Dimension = "[Measures]";
+                    patientcountmeasure.MemberName = "[Patient Count]";
+                    barchartdata = helper.GetTableRows(helper.GetMeasureOnAllDrugsByCondition<int>(patientcountmeasure, conditionmember));
+                    break;
+                case "Prescription Count":
+                    Measure<int> prescriptioncountmeasure = new Measure<int>();
+                    prescriptioncountmeasure.Dimension = "[Measures]";
+                    prescriptioncountmeasure.MemberName = "[Prescription Count]";
+                    barchartdata = helper.GetTableRows(helper.GetMeasureOnAllDrugsByCondition<int>(prescriptioncountmeasure, conditionmember));
+                    break;
+                case "Prescription Cost":
+                    Measure<double> prescriptioncostmeasure = new Measure<double>();
+                    prescriptioncostmeasure.Dimension = "[Measures]";
+                    prescriptioncostmeasure.MemberName = "[Prescription Cost]";
+                    barchartdata = helper.GetTableRows(helper.GetMeasureOnAllDrugsByCondition<double>(prescriptioncostmeasure, conditionmember));
+                    break;
+                default:
+                    break;
+            }
 
             //return Json<BarChartData>(barchartdata);
             //return drugusage;
             //yourdrugdata yd = new yourdrugdata();
             //return Json<yourdrugdata>(yd);
-            return Json<DrugData[]>(drugusage);
+            //return Json<DrugData[]>(drugusage);
+            return Json<List<Dictionary<string, object>>>(barchartdata);
         }
     }
 }

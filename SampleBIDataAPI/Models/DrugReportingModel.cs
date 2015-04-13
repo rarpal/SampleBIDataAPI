@@ -32,12 +32,31 @@ namespace SampleBIDataAPI.Models
             ConditionDimension = new ConditionDimension();
             //DrugConceptDimension = new ConceptDimension("DESCENDANTS([Dim Concept].[Concept].&[254819],[Dim Concept].[Concept].[Level 02],AFTER)");
         }
+
+        public List<Dictionary<string,object>> GetTableRows(DataTable datatable)
+        {
+            List<Dictionary<string, object>> listrows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> dictrow = null;
+
+            foreach (DataRow rowitem in datatable.Rows)
+            {
+                dictrow = new Dictionary<string, object>();
+                foreach (DataColumn coltem in datatable.Columns)
+                {
+                    dictrow.Add(coltem.ColumnName, rowitem[coltem]);
+                }
+                listrows.Add(dictrow);
+            }
+
+            return listrows;
+        }
         
 
-        public void GetMeasureOnAllDrugsByCondition<T>(Measure<T> measure, ConditionMember conditionmember)
+        public DataTable GetMeasureOnAllDrugsByCondition<T>(Measure<T> measure, ConditionMember conditionmember)
         {
             // construct the MDX, execute and return an IQueriable result to the controller
             string mdxQuery = null;
+            DataSet dset = new DataSet();
 
             mdxQuery += "SELECT " + measure.Dimension + "." + measure.MemberName + "ON 0, " +
                 "NON EMPTY DESCENDANTS([Dim Concept].[Concept].&[254819],[Dim Concept].[Concept].[Level 02],AFTER) ON 1 " +
@@ -47,33 +66,25 @@ namespace SampleBIDataAPI.Models
             using (AdomdConnection dc = new AdomdConnection(DataConnection.GetSSASConnectionString()))
             {
 
-                using (AdomdCommand dcom = new AdomdCommand(mdxQuery, dc))
-                {
-                    dc.Open();
-                    AdomdDataReader dr = dcom.ExecuteReader();
+                //using (AdomdCommand dcom = new AdomdCommand(mdxQuery, dc))
+                //{
+                //    dc.Open();
+                //    AdomdDataReader dr = dcom.ExecuteReader();
 
-                }
-                
-                
-                //dc.Open();
-                //AdomdCommand dcom = new AdomdCommand(mdxQuery, dc);
-                //DataSet dset = new DataSet();
-                //dset.EnforceConstraints = false;
-                //dset.Tables.Add("Results");
-                //dset.Tables["Results"].Load(dcom.ExecuteReader());
+                //}
 
-                
+
+                dc.Open();
+                AdomdCommand dcom = new AdomdCommand(mdxQuery, dc);
+                dset.EnforceConstraints = false;
+                dset.Tables.Add("Results");
+                dset.Tables["Results"].Load(dcom.ExecuteReader());
+               
             }
             
-            
-            
             IQueryable result = null;
-
-
-            
-            
-
             //return result;
+            return dset.Tables[0];
         }
         
         public ConditionMember GetConditionMemberByName(string condition)
