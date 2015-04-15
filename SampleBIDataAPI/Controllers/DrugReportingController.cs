@@ -60,7 +60,8 @@ namespace SampleBIDataAPI.Controllers
 
         // Get measure for all drugs by condition and return JSON result to the AJAX client
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public JsonResult<List<Dictionary<string, object>>> GetMeasureOnAllDrugsByCondition(string measure, string condition)
+        //public JsonResult<List<Dictionary<string, object>>> GetMeasureOnAllDrugsByCondition(string measure, string condition)
+        public DataTable GetMeasureOnAllDrugsByCondition(string measure, string condition)
         //public IEnumerable<DrugData> GetMeasureOnAllDrugsByCondition()
         //public JsonResult<yourdrugdata> GetMeasureOnAllDrugsByCondition()
         //public JsonResult<DrugData[]> GetMeasureOnAllDrugsByCondition()
@@ -69,7 +70,8 @@ namespace SampleBIDataAPI.Controllers
             //string condition = null;
             //BarChartData barchartdata = new BarChartData();
             //DataRowCollection barchartdata = new DataRowCollection();
-            List<Dictionary<string,object>> barchartdata = new List<Dictionary<string,object>>();
+            //List<Dictionary<string,object>> barchartdata = new List<Dictionary<string,object>>();
+            DataTable barchartdata = new DataTable();
             DrugReportingModelHelper helper = new DrugReportingModelHelper();
             ConditionMember conditionmember = new ConditionMember(null,"&[10073]"); //helper.GetConditionMemberByName(condition);
 
@@ -79,19 +81,22 @@ namespace SampleBIDataAPI.Controllers
                     Measure<int> patientcountmeasure = new Measure<int>();
                     patientcountmeasure.Dimension = "[Measures]";
                     patientcountmeasure.MemberName = "[Patient Count]";
-                    barchartdata = helper.GetTableRows(helper.GetMeasureOnAllDrugsByCondition<int>(patientcountmeasure, conditionmember));
+                    //barchartdata = helper.GetTableRows(helper.GetMeasureOnAllDrugsByCondition<int>(patientcountmeasure, conditionmember));
+                    barchartdata = helper.GetMeasureOnAllDrugsByCondition<int>(patientcountmeasure, conditionmember);
                     break;
                 case "Prescription Count":
                     Measure<int> prescriptioncountmeasure = new Measure<int>();
                     prescriptioncountmeasure.Dimension = "[Measures]";
                     prescriptioncountmeasure.MemberName = "[Prescription Count]";
-                    barchartdata = helper.GetTableRows(helper.GetMeasureOnAllDrugsByCondition<int>(prescriptioncountmeasure, conditionmember));
+                    //barchartdata = helper.GetTableRows(helper.GetMeasureOnAllDrugsByCondition<int>(prescriptioncountmeasure, conditionmember));
+                    barchartdata = helper.GetMeasureOnAllDrugsByCondition<int>(prescriptioncountmeasure, conditionmember);
                     break;
                 case "Prescription Cost":
                     Measure<double> prescriptioncostmeasure = new Measure<double>();
                     prescriptioncostmeasure.Dimension = "[Measures]";
                     prescriptioncostmeasure.MemberName = "[Prescription Cost]";
-                    barchartdata = helper.GetTableRows(helper.GetMeasureOnAllDrugsByCondition<double>(prescriptioncostmeasure, conditionmember));
+                    //barchartdata = helper.GetTableRows(helper.GetMeasureOnAllDrugsByCondition<double>(prescriptioncostmeasure, conditionmember));
+                    barchartdata = helper.GetMeasureOnAllDrugsByCondition<double>(prescriptioncostmeasure, conditionmember);
                     break;
                 default:
                     break;
@@ -102,7 +107,8 @@ namespace SampleBIDataAPI.Controllers
             //yourdrugdata yd = new yourdrugdata();
             //return Json<yourdrugdata>(yd);
             //return Json<DrugData[]>(drugusage);
-            return Json<List<Dictionary<string, object>>>(barchartdata);
+            //return Json<List<Dictionary<string, object>>>(barchartdata);
+            return barchartdata;
         }
     }
 }

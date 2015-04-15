@@ -25,7 +25,7 @@ public static class DataConnection
     public static string GetSSASConnectionString()
     {
 
-        return String.Format("data source={0};catalog=ACG;cube=ACG", GetServerName());
+        return String.Format("data source={0};catalog=PatientCT;cube=PatientCT", GetServerName());
     }
 
     //public static bool CanAccessCCG(string ccg, string user)

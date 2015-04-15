@@ -39,7 +39,7 @@
 
             //var data = [4, 8, 15, 16, 23, 42];
             //d3.tsv("http://localhost/SampleBIDataAPI/chartData.txt", type, function (error, data) {
-            d3.json("api/DrugReporting", function (error, data) {
+            d3.json("api/DrugReporting?measure=Patient Count&&condition=[10073]", function (error, data) {
                 x.domain([0, d3.max(data, function(d) { return d.Count; })]);
 
                 chart.attr("height", barHeight * data.length);
